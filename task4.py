@@ -64,7 +64,6 @@ class Student:
             if course in lecturer.grades:
                 total_grades += sum(lecturer.grades[course])
                 total_students += len(lecturer.grades[course])
-    
         return total_grades / total_students if total_students > 0 else 0      
           
 class Mentor:
@@ -72,8 +71,6 @@ class Mentor:
         self.name = name
         self.surname = surname
         self.courses_attached = []
-        
-    
 
 class Lecturer(Mentor):
     def __init__(self, name, surname):
