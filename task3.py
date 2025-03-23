@@ -12,9 +12,34 @@ class Student:
         avg_grd = self.average_grade()
         result += f'Средняя оценка за домашние задания: {avg_grd}\n'
         result += f'Курсы в процессе изучения: {", ".join(self.courses_in_progress)}\n'
-        result += f'Завершенные курсы: {", ".join(self.finished_courses)}\n'    
+        result += f'Завершенные курсы: {", ".join(self.finished_courses) }\n'    
         return result       
+    
+    def __lt__(self, other):
+        if isinstance(other, Student):
+            return self.average_grade() < other.average_grade()
+        return NotImplemented
+    
+    def __le__(self, other):
+        if isinstance(other, Student):
+            return self.average_grade() <= other.average_grade()
+        return NotImplemented
+    
+    def __gt__(self, other):
+        if isinstance(other, Student):
+            return self.average_grade() > other.average_grade()
+        return NotImplemented        
+    
+    def __ge__(self, other):
+        if isinstance(other, Student):
+            return self.average_grade() >= other.average_grade()
+        return NotImplemented  
 
+    def __eq__(self, other):
+        if isinstance(other, Student):
+            return self.average_grade() == other.average_grade()
+        return NotImplemented  
+     
     def average_grade(self):
         total_grades = 0
         total_courses = 0
@@ -30,7 +55,8 @@ class Student:
             else:
                 lecturer.grades[course] = [grade]
         else:
-            return 'Ошибка'        
+            return 'Ошибка'  
+          
          
 class Mentor:
     def __init__(self, name, surname):
@@ -50,6 +76,31 @@ class Lecturer(Mentor):
         avg_grd = self.average_grade()
         result += f'Средняя оценка за лекции: {avg_grd}\n'
         return result    
+    
+    def __lt__(self, other):
+        if isinstance(other, Lecturer):
+            return self.average_grade() < other.average_grade()
+        return NotImplemented
+    
+    def __le__(self, other):
+        if isinstance(other, Lecturer):
+            return self.average_grade() <= other.average_grade()
+        return NotImplemented
+    
+    def __gt__(self, other):
+        if isinstance(other, Lecturer):
+            return self.average_grade() > other.average_grade()
+        return NotImplemented        
+    
+    def __ge__(self, other):
+        if isinstance(other, Lecturer):
+            return self.average_grade() >= other.average_grade()
+        return NotImplemented  
+
+    def __eq__(self, other):
+        if isinstance(other, Lecturer):
+            return self.average_grade() == other.average_grade()
+        return NotImplemented  
     
     def average_grade(self):
         total_grades = 0
@@ -87,11 +138,17 @@ some_student2.courses_in_progress += ['Ruby']
 some_reviewer = Reviewer('Some', 'Buddy')
 some_reviewer.courses_attached += ['Python']
 some_reviewer.courses_attached += ['Git']
+some_reviewer.courses_attached += ['Ruby']
  
 some_reviewer.rate_hw(some_student, 'Python', 10)
 some_reviewer.rate_hw(some_student, 'Python', 4)
 some_reviewer.rate_hw(some_student, 'Python', 10)
 some_reviewer.rate_hw(some_student, 'Git', 5)
+
+some_reviewer.rate_hw(some_student2, 'Ruby', 10)
+some_reviewer.rate_hw(some_student2, 'Ruby', 4)
+some_reviewer.rate_hw(some_student2, 'Ruby', 10)
+some_reviewer.rate_hw(some_student2, 'Ruby', 10)
 
 best_lecturer1 = Lecturer('Johny', 'Ivanov')
 best_lecturer2 = Lecturer('Stan', 'Petrov')
@@ -101,13 +158,14 @@ best_lecturer2.courses_attached += ['Python']
 
 some_student.rate_lecturer(best_lecturer2,'Python', 9)
 some_student.rate_lecturer(best_lecturer2,'Python', 5)
-some_student2.rate_lecturer(best_lecturer1,'Ruby', 10)
-some_student2.rate_lecturer(best_lecturer1,'Ruby', 3)
+some_student2.rate_lecturer(best_lecturer1,'Ruby', 9)
+some_student2.rate_lecturer(best_lecturer1,'Ruby', 5)
 
 print(some_reviewer)
 print(best_lecturer1)
 print(best_lecturer2)
 print(some_student)
+print(some_student2)
 
-print(some_student > some_student2)  # Сравнение студентов по средней оценке
-print(best_lecturer1 < best_lecturer2)  # Сравнение лекторов по средней оценке
+print(some_student <= some_student2)  # Сравнение студентов по средней оценке
+print(best_lecturer1 == best_lecturer2)  # Сравнение лекторов по средней оценке
